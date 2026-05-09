@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const { prompt, password } = req.body;
   
   // The secret password the python script must provide
-  const SECRET_PASS = "Acanicheat123!"; 
+  const SECRET_PASS = "acanicheat123!"; 
 
   if (password !== SECRET_PASS) {
     return res.status(401).json({ error: 'Unauthorized Access: Invalid Password' });

@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   }
 
   // Your provided API keys
-  const KEYS_STRING = "AIzaSyDtichvyfc1HmwqXIVTkr65dTy8TJlT0JI;AIzaSyCnB-r7P_mfRy1SB84hBYl_WllOjlkgRKs;AIzaSyAjr0ebSLNwANp8pObnhDcG14DKWeuAyRA";
+  const KEYS_STRING = "AIzaSyDtichvyfc1HmwqXIVTkr65dTy8TJlT0JI;AIzaSyCnB-r7P_mfRy1SB84hBYl_WllOjlkgRKs;AIzaSyAjr0ebSLNwANp8pObnhDcG14DKWeuAyRA;AIzaSyBdeT0q0xkoCT-AY6TwnIW0L0JTiup6Ejk;AIzaSyDapxADsrcf7Abbord77tDobgyrFel-X-w";
   const KEYS = KEYS_STRING.split(";");
 
   // The system prompt rules

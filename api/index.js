@@ -1,3 +1,5 @@
+import { GoogleGenAI } from "@google/genai";
+
 export default async function handler(req, res) {
   // CORS headers if needed
   if (req.method !== 'POST') {
@@ -7,7 +9,7 @@ export default async function handler(req, res) {
   const { prompt, password } = req.body;
   
   // The secret password the python script must provide
-  const SECRET_PASS = "acanicheat123!"; 
+  const SECRET_PASS = "acanicheat123!";
 
   if (password !== SECRET_PASS) {
     return res.status(401).json({ error: 'Unauthorized Access: Invalid Password' });
@@ -58,37 +60,31 @@ int main(){
 
   let responseText = null;
 
-  // Loop through API keys on the server side
+  // Loop through API keys on the server side using the official SDK
   for (let i = 0; i < KEYS.length; i++) {
     const key = KEYS[i];
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${key}`;
-      const payload = {
-        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-        contents: [{ parts: [{ text: prompt }] }],
-        tools: [{ google_search: {} }]
-      };
+      // Initialize the Google Gen AI client with the current key
+      const ai = new GoogleGenAI({ apiKey: key });
 
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+      // Call the API using the official SDK wrapper
+      const response = await ai.models.generateContent({
+        model: 'gemini-3-flash-preview',
+        contents: prompt,
+        config: {
+          systemInstruction: SYSTEM_PROMPT,
+          tools: [{ googleSearch: {} }]
+        }
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP Error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      
-      if (data.candidates && data.candidates[0].content.parts[0].text) {
-          responseText = data.candidates[0].content.parts[0].text;
+      if (response && response.text) {
+          responseText = response.text;
           break; // Success, stop trying keys
       } else {
-          throw new Error('Unexpected response format');
+          throw new Error('Unexpected empty response format');
       }
     } catch (e) {
-      console.error(`Key ${i+1} failed:`, e.message);
+      console.error(`Key ${i+1} failed:`, e.message || e);
     }
   }
 

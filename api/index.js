@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   const { prompt, password } = req.body;
   
   // The secret password the python script must provide
-  const SECRET_PASS = "acanicheat123!";
+  const SECRET_PASS = "acanicheat123@";
 
   if (password !== SECRET_PASS) {
     return res.status(401).json({ error: 'Unauthorized Access: Invalid Password' });
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   }
 
   // Your provided API keys
-  const KEYS_STRING = "AIzaSyClRF2QhXkgwKbl1ww5eRc2W-GkadMJNyY;AIzaSyA8bmmchmyG_rhFon7cfWhcYQtf2Su6ZNg;AIzaSyAxSmhVhy6MDIGXEbOI_yYuzxYyZvpYhG4;AIzaSyCdAZ_q6McQ_91OYpNQTQA7t2zki4L8cHs;AIzaSyCvG-yR4j0yI0sDko_gI_xqfyFxmZxYrKg;AIzaSyCHzfq3QOqbIGVOPf7pUCUzpIIVIWvByek";
+  const KEYS_STRING = "AIzaSyDtichvyfc1HmwqXIVTkr65dTy8TJlT0JI;AIzaSyCnB-r7P_mfRy1SB84hBYl_WllOjlkgRKs;AIzaSyAjr0ebSLNwANp8pObnhDcG14DKWeuAyRA";
   const KEYS = KEYS_STRING.split(";");
 
   // The system prompt rules
